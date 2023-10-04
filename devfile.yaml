@@ -1,0 +1,27 @@
+schemaVersion: 2.1.0
+metadata:
+  name: IBMi-Developer
+projects:
+  - name: ibmi-company-system
+    git:
+      remotes:
+        origin: 'https://github.com/IBM/ibmi-company_system.git'
+      checkoutFrom:
+        revision: main
+components:
+  - name: tools
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8:3.3
+      endpoints:
+        - exposure: public
+          name: ibmi-developer
+          protocol: http
+          targetPort: 3000
+      memoryLimit: 2G
+      mountSources: true
+      volumeMounts:
+        - name: ibmi
+          path: /home/user/.ibmi
+  - name: ibmi
+    volume:
+      size: 1G
